@@ -1,6 +1,3 @@
-
-
-
 public class Person
 {
 
@@ -31,6 +28,10 @@ public class Person
 
     public String toString()
     {
+        if (this.services != null && this.value != 0)
+        {
+            return this.name + ": " + this.services + " - " + this.value + "$";
+        }
         if (this.value != 0)
         {
             return this.name + ": " + Math.round((this.value)*100.0)/100.0 + "$";
@@ -47,3 +48,4 @@ public class Person
 
 
 }
+
