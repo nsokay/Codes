@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,13 +20,17 @@ public class Solution2 {
         String sservice; // service name
         double scost; // payment
 
-        while (true) { // "infinite" data entry while all conditions are right
+        boolean z = true;
+        boolean x;
+
+        while (z) { // "infinite" data entry while all conditions are right
             System.out.println("Type Name or press enter to exit / or get results : ");
             sname = reader.readLine(); // reading name from console
 
             if (!sname.equals("")) { //if name isn't null
+                x = true;
                 double acost = 0;
-                while (true) {
+                while (x) {
 
                     System.out.println("Enter Service Name or press enter to exit : ");
                     sservice = reader.readLine();// reading service name from console
@@ -41,15 +44,12 @@ public class Solution2 {
                             {
                                 acost = acost + scost;
                                 nameList.add(new Person(sname, sservice, scost));
-                            } else
-                            System.out.println("Sorry, you entered negative number, so i decided to" +
-                                    " give you one more chance to enter data starting from Name ^_^ GL&HF");
-                                break;
-                    } else break;
+                            } else x = false;
+                    } else x = false;
                 }
 
                 nameCost.add(new Person(sname, acost)); // putting every Person's name and sum of payments in nameCost array;
-            } else break;
+            } else z = false;
         }
 
         // Payment's information output. Info about Names and services + payments made according to Name
@@ -63,7 +63,8 @@ public class Solution2 {
         for (int i = 0; i < nameList.size(); i++) {
             sum = sum + nameList.get(i).value;
         }
-        System.out.println("\n" + "Total: " + Math.round(sum) + "$");
+        sum = Math.round(sum *100.0)/100.0;
+        System.out.println("\n" + "Total: " + sum + "$");
 
         // Counting avrg sum for each Person to pay
         double per = 1;
@@ -76,11 +77,10 @@ public class Solution2 {
 
             } else break;
         }
-        System.out.println("Average: " + (sum / per) + "$ to be paid by mate.");
-
 
         // Expenses output
-        double avg = (sum/per); // getting average sum each to pay
+        double avg = Math.round((sum/per)*100.0)/100.0; // getting average sum each to pay
+        System.out.println("Average: " + avg + "$ to be paid by mate.");
 
         System.out.println("\n" + "Expenses:"); // output of all Names and their payments sum
         for (Person a : nameCost) {
@@ -142,7 +142,7 @@ public class Solution2 {
                     max = Math.round((max - 0.01)*100.0)/100.0; // decreasing max by 0.01 (for eah possible cent);
                     // rounding min and max till .00 cause in this case it was making smth like 0.99999+ step not 0.1 dk why;
 
-                    if (min == avg) { // if min reached avg first
+                    if (min == avg && max != avg) { // if min reached avg first
 
                         pay = avg - minList.get(i).value;
                         sums = minList.get(i).value + pay; //increasing value of item (i) in minList
@@ -175,20 +175,17 @@ public class Solution2 {
 
         /// Printing out the results of all transactions in all Person's total "pocket" sum
         System.out.println("\nResults : \n");
-        for (Person x : minList)
+        for (Person y : minList)
         {
-            System.out.println(x);
+            System.out.println(y);
         }
 
-        for (Person z : maxList)
+        for (Person u : maxList)
         {
-            System.out.println(z);
+            System.out.println(u);
         }
     }
 }
-
-
-
 
 
 
